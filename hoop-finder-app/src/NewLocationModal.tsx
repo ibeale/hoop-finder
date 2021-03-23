@@ -38,11 +38,6 @@ export default function NewLocationModal(props: NLMProps){
         <Modal.Body>
             <Form>
                 <Form.Group>
-                    <Form.Label>Coordinates</Form.Label>
-                    <Form.Group>
-                        <Form.Text>Lat: {props.locationToAdd.lat}</Form.Text>
-                        <Form.Text>Lng: {props.locationToAdd.lng}</Form.Text>
-                    </Form.Group>
                     <Form.Label>Name</Form.Label>
                     <Form.Control type="text" id="new-hoop-name-field" placeholder="Enter a name for this hoop" onChange={(event) => setHoop({...hoop, name: event.target.value})}></Form.Control>
                     <Form.Label>Rim Type</Form.Label>

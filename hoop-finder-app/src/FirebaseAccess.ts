@@ -17,6 +17,23 @@ export class FirebaseAccess{
 
     private constructor(){
         this.initFirebase();
+
+    }
+
+    setEventHandlers(setLocations: Function){
+        let hoopsRef = firebase.database().ref("hoops");
+        hoopsRef.on('child_added', (data) => {
+            setLocations((oldarray:Hoop[]) => [...oldarray, data.val()]);
+        })
+
+        hoopsRef.on('child_removed', (data) =>{
+            setLocations((oldarray:Hoop[]) => {
+                let prevHoops = [...oldarray];
+                
+                let newHoops = prevHoops.filter(hoop => (hoop.lat != data.val().lat && hoop.lng != data.val().lng));
+                return newHoops;
+            })
+        })
     }
 
     public static getInstance(){
@@ -28,7 +45,6 @@ export class FirebaseAccess{
 
     initFirebase(){
         // Initialize Firebase
-        console.log("test");
         firebase.initializeApp(this.firebaseConfig);
         firebase.analytics();
     }
