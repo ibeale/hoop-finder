@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { Hoop } from './App';
+import { Hoop, HoopContainer } from './App';
 
 
 
@@ -23,14 +23,14 @@ export class FirebaseAccess{
     setEventHandlers(setLocations: Function){
         let hoopsRef = firebase.database().ref("hoops");
         hoopsRef.on('child_added', (data) => {
-            setLocations((oldarray:Hoop[]) => [...oldarray, data.val()]);
+            setLocations((oldarray:HoopContainer[]) => [...oldarray, {ref: data.key, hoop: data.val()}]);
         })
 
         hoopsRef.on('child_removed', (data) =>{
-            setLocations((oldarray:Hoop[]) => {
+            setLocations((oldarray:HoopContainer[]) => {
                 let prevHoops = [...oldarray];
                 
-                let newHoops = prevHoops.filter(hoop => (hoop.lat != data.val().lat && hoop.lng != data.val().lng));
+                let newHoops = prevHoops.filter(item => (item.hoop.lat != data.val().lat && item.hoop.lng != data.val().lng));
                 return newHoops;
             })
         })
@@ -56,6 +56,11 @@ export class FirebaseAccess{
         let newHoopRef = FirebaseAccess.getInstance().getDatabase().ref("hoops").push()
         newHoopRef.set(hoop);
       
+    }
+
+    deleteHoop(hoop:HoopContainer, callback:Function){
+        FirebaseAccess.getInstance().getDatabase().ref("hoops").child(hoop.ref).remove();
+        callback();
     }
 
 
