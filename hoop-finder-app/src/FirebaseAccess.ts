@@ -1,9 +1,14 @@
 import firebase from 'firebase';
 import { Hoop, HoopContainer } from './App';
 
-
+export interface User {
+    displayName: string|null|undefined,
+    email: string|null|undefined,
+    timeCreated: number
+} 
 
 export class FirebaseAccess{
+    user : User| null = null;
     firebaseConfig = {
         apiKey: process.env.REACT_APP_GOOGLE_API_KEY !== undefined ? process.env.REACT_APP_GOOGLE_API_KEY : "",
         authDomain: "hoop-finder.firebaseapp.com",
@@ -19,6 +24,35 @@ export class FirebaseAccess{
         this.initFirebase();
 
     }
+
+    loginWithPopup(setUser:Function){
+        let provider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth()
+        .signInWithPopup(provider)
+        .then((result) => {
+          /** @type {firebase.auth.OAuthCredential} */
+          var credential = result.credential;
+      
+          // This gives you a Google Access Token. You can use it to access the Google API.
+          var token = (credential as firebase.auth.OAuthCredential)?.accessToken;
+          // The signed-in user info.
+          var user = result.user;
+          setUser({displayName: user?.displayName, email: user?.email, timeCreated: new Date().getTime()});
+          
+          // ...
+        }).catch((error) => {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          // The email of the user's account used.
+          var email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          var credential = error.credential;
+          // ...
+          
+        });
+        return this.user;
+      }
 
     setEventHandlers(setLocations: Function){
         let hoopsRef = firebase.database().ref("hoops");
@@ -55,6 +89,7 @@ export class FirebaseAccess{
     createHoop(hoop:Hoop) {
         let newHoopRef = FirebaseAccess.getInstance().getDatabase().ref("hoops").push()
         newHoopRef.set(hoop);
+
       
     }
 

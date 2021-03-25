@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Dropdown, Form, Modal, ModalTitle } from 'react-bootstrap';
-import {Hoop, hoopCoords} from './App'
-import { FirebaseAccess } from './FirebaseAccess';
+import {Hoop, HoopContainer, hoopCoords} from './App'
+import { FirebaseAccess, User } from './FirebaseAccess';
 
 
 
@@ -9,6 +9,8 @@ interface NLMProps{
     showModal: boolean,
     locationToAdd: hoopCoords,
     toggleShow: Function,
+    user: User|null,
+    hoops: HoopContainer[]
 }
 
 function createHoopAndHideModal(hoop:Hoop|undefined, props:NLMProps){
@@ -30,7 +32,16 @@ function createHoopAndHideModal(hoop:Hoop|undefined, props:NLMProps){
 }
 
 export default function NewLocationModal(props: NLMProps){
-    const [hoop, setHoop] = React.useState<Hoop>({name: undefined, height: "10ft", rimType: "Single Rim", courtSize: "Full Court"});
+    const [hoop, setHoop] = React.useState<Hoop>({name: undefined, height: "10ft", rimType: "Single Rim", courtSize: "Full Court", createdBy:props.user});
+    let currentTime = new Date().getTime();
+    const [lastCreated, setLastCreated] = React.useState<number>(currentTime);
+    let button;
+    if(currentTime - lastCreated < 10000){
+        button = <Button variant="primary" disabled>You can only create a hoop every 10 seconds</Button>
+    }
+    else{
+        button = <Button variant="primary" onClick={() => {createHoopAndHideModal(hoop, props); setLastCreated(currentTime)}}> Submit</Button>
+    }
     return(<Modal show={props.showModal} onHide={props.toggleShow}>
         <Modal.Header closeButton >
           <Modal.Title>Add a new hoop</Modal.Title>
@@ -58,8 +69,10 @@ export default function NewLocationModal(props: NLMProps){
                         <option>Greater than 10ft</option>
                     </Form.Control> 
                 </Form.Group>
-                <Button variant="primary" onClick={() => createHoopAndHideModal(hoop, props)}> Submit</Button>
+                
             </Form>
+            
+        {button}
         </Modal.Body>
         <Modal.Footer>
         </Modal.Footer>

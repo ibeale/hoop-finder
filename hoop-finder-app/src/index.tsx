@@ -5,6 +5,10 @@ import App from './App';
 
 ReactDOM.render(
   <React.StrictMode>
+            <div className="jumbotron">
+        <h1>Hoop Finder</h1>
+        <h2>Find basketball hoops near you</h2>
+        </div>
     <App />
   </React.StrictMode>,
   document.getElementById('root')
