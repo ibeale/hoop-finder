@@ -31,7 +31,7 @@ export default function HoopInfoModal(props: HIMprops){
                     <Form.Control type="text" value={props.hoop.hoop.height} disabled>
                     </Form.Control>
                     <Form.Label>Created By</Form.Label>
-                    <Form.Control type="text" value={props.user !== null && props.user.displayName !== null ? props.user.displayName : ""} disabled ></Form.Control> 
+                    <Form.Control type="text" value={props.hoop.hoop.createdBy?.displayName !== null ? props.hoop.hoop.createdBy?.displayName : ""} disabled ></Form.Control> 
                 </Form.Group>
             </Form>
 
