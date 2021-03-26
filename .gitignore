@@ -141,4 +141,24 @@ psd
 thumb
 sketch
 
+
+
 # End of https://www.toptal.com/developers/gitignore/api/react,node
+hoop-finder-app/build/asset-manifest.json
+hoop-finder-app/build/favicon.ico
+hoop-finder-app/build/index.html
+hoop-finder-app/build/manifest.json
+hoop-finder-app/build/robots.txt
+hoop-finder-app/build/static/css/main.6dea0f05.chunk.css
+hoop-finder-app/build/static/css/main.6dea0f05.chunk.css.map
+hoop-finder-app/build/static/js/2.d6625a7b.chunk.js
+hoop-finder-app/build/static/js/2.d6625a7b.chunk.js.LICENSE.txt
+hoop-finder-app/build/static/js/2.d6625a7b.chunk.js.map
+hoop-finder-app/build/static/js/main.77a2fca6.chunk.js
+hoop-finder-app/build/static/js/main.77a2fca6.chunk.js.map
+hoop-finder-app/build/static/js/runtime-main.f5c17742.js
+hoop-finder-app/build/static/js/runtime-main.f5c17742.js.map
+hoop-finder-app/.firebase/hosting.VXNlcnMvaXNhYWNiZWFsZS9SZXBvc2l0b3JpZXMvaG9vcC1maW5kZXIvaG9vcC1maW5kZXItYXBwL2J1aWxk.cache
+hoop-finder-app/.firebase/hosting.VXNlcnMvaXNhYWNiZWFsZS9SZXBvc2l0b3JpZXMvaG9vcC1maW5kZXIvaG9vcC1maW5kZXItYXBwL3B1YmxpYw.cache
+hoop-finder-app/.firebase/hosting.YnVpbGQ.cache
+.github/workflows/firebase-hosting-pull-request.yml
